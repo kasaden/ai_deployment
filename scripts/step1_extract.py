@@ -10,7 +10,7 @@ import re
 from datetime import datetime, timezone
 
 INPUT = "../Instructions/data_set.json"
-OUTPUT = "../Data/corpus.json"
+OUTPUT = "../data/corpus.json"
 
 
 def clean(text):

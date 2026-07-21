@@ -17,9 +17,9 @@ import spacy
 from spacy.tokens import DocBin
 from spacy.util import filter_spans
 
-INPUT = "../Data/annotations.json"
-TRAIN_OUT = "../Data/train.spacy"
-DEV_OUT = "../Data/dev.spacy"
+INPUT = "../data/annotations.json"
+TRAIN_OUT = "../data/train.spacy"
+DEV_OUT = "../data/dev.spacy"
 
 SPLIT = 0.8   # part de train
 SEED = 42

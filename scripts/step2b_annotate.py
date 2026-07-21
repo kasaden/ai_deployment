@@ -20,8 +20,8 @@ import time
 
 import requests
 
-INPUT = "../Data/to_annotate.json"
-OUTPUT = "../Data/annotations.json"
+INPUT = "../data/to_annotate.json"
+OUTPUT = "../data/annotations.json"
 ENV_FILE = "../.env"
 
 MODEL = "mistral-small-latest"

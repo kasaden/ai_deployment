@@ -13,8 +13,8 @@ import json
 import random
 import re
 
-INPUT = "../Data/corpus.json"
-OUTPUT = "../Data/to_annotate.json"
+INPUT = "../data/corpus.json"
+OUTPUT = "../data/to_annotate.json"
 
 N_ARTICLES = 500      # nombre d'articles echantillonnes
 MAX_SENTENCES = 10000  # plafond d'unites a annoter
