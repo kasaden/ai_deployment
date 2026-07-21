@@ -32,9 +32,19 @@ python scripts/step2b_annotate.py # -> data/annotations.json
 
 python scripts/step3a_convert.py # -> data/train.spacy, data/dev.spacy
 
+
+# Étape 3b — train + config.cfg
+
+python -m spacy init config config.cfg --lang en --pipeline ner
+
 # Étape 3c — entraîner le modèle NER
 
-python -m spacy train config.cfg \
- --output ./output \
- --paths.train ./data/train.spacy \
- --paths.dev ./data/dev.spacy # -> output/model-best
+python -m spacy train config.cfg  --output ./output  --paths.train ./data/train.spacy  --paths.dev ./data/dev.spacy
+
+# Étape 4 — infer
+
+python scripts/step2b_annotate.py # -> data/annotations.json
+
+# Étape 5 — ingest
+
+python scripts/step3a_convert.py # -> data/train.spacy, data/dev.spacy

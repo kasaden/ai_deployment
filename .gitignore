@@ -3,3 +3,4 @@
 data/*.spacy
 output/
 __pycache__/
+data/*.json
