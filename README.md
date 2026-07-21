@@ -8,6 +8,7 @@ Déploiement de solutions d’IA. OSINT
 
 python -m venv .venv
 pip install -r requirements.txt
+python -m pip install click
 python -m spacy download en_core_web_sm
 
 cp .env.example .env
