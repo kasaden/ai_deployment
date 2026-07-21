@@ -23,6 +23,24 @@ LIMIT = 2000   # nb d'articles a traiter (mettre None pour tout le corpus)
 # label du modele -> nom du champ dans le document
 FIELD = {"WEAPON": "weapons", "MIL_UNIT": "mil_units", "MIL_ORG": "mil_orgs"}
 
+# regroupement de synonymes evidents (cles et valeurs en minuscules)
+# On NE fusionne PAS les nationalites (russian/ukrainian) : c'est du renseignement.
+ALIAS = {
+    "uavs": "uav",
+    "unmanned aerial vehicle": "uav",
+    "unmanned aerial vehicles": "uav",
+    "drones": "drone",
+    "tanks": "tank",
+    "mortars": "mortar",
+    "missiles": "missile",
+}
+
+
+def normalize(text):
+    """Minuscules, espaces normalises, puis alias eventuel."""
+    t = " ".join(text.lower().split())
+    return ALIAS.get(t, t)
+
 
 def main():
     nlp = spacy.load(MODEL)
@@ -43,8 +61,9 @@ def main():
         for ent in doc.ents:
             if ent.label_ in FIELD:
                 field = FIELD[ent.label_]
-                if ent.text not in groups[field]:   # unique par article
-                    groups[field].append(ent.text)
+                value = normalize(ent.text)
+                if value not in groups[field]:   # unique par article
+                    groups[field].append(value)
 
         enriched.append({
             "id": article["id"],
