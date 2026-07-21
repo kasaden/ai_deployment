@@ -1,0 +1,542 @@
+[
+  [
+    "Russia will deliver S-300 missile defense systems to Iran in August or September this year, Rostec state corporation CEO Sergey Chemezov told the Wall Street Journal in an interview published on Friday.",
+    {
+      "entities": [
+        [
+          20,
+          25,
+          "WEAPON"
+        ]
+      ]
+    }
+  ],
+  [
+    "\"I think we will deliver the S-300 by the end of the year\" Chemezov said adding that \"the first delivery will be in September or August.\" Answering a question on whether it will be a PMU-1, he noted: \"Yes, they gave the conditions, and said they need only an S-300 PMU-1.\" \"We suggested an Antey-2500, but they said no, give us the S-300,\" Chemezov went on.",
+    {
+      "entities": [
+        [
+          29,
+          34,
+          "WEAPON"
+        ],
+        [
+          259,
+          270,
+          "WEAPON"
+        ],
+        [
+          290,
+          300,
+          "WEAPON"
+        ],
+        [
+          332,
+          337,
+          "WEAPON"
+        ]
+      ]
+    }
+  ],
+  [
+    "\"Essentially, it’s the last system that we will deliver, and then yes, after that it probably won’t be produced anymore,\" he added.",
+    {
+      "entities": []
+    }
+  ],
+  [
+    "Russia and Iran signed the previous contract for the supplies of five divisions of the S-300 missile systems in 2007.",
+    {
+      "entities": [
+        [
+          65,
+          79,
+          "MIL_UNIT"
+        ],
+        [
+          87,
+          92,
+          "WEAPON"
+        ]
+      ]
+    }
+  ],
+  [
+    "In September 2010, then-President Dmitry Medvedev inked a decree on measures on implementing the UN Security Council Resolution 1929 that in particular banned the S-300 supplies to Iran.",
+    {
+      "entities": [
+        [
+          163,
+          168,
+          "WEAPON"
+        ]
+      ]
+    }
+  ],
+  [
+    "The contract worth over $800 million was canceled and the advance payment was sent back to the Islamic Republic.",
+    {
+      "entities": []
+    }
+  ],
+  [
+    "Iran filed an almost $4 billion lawsuit against Russia at the Geneva Court of Arbitration over Russia’s failure to fulfill the contract.",
+    {
+      "entities": []
+    }
+  ],
+  [
+    "In April 2015, Russian President Vladimir Putin lifted the ban on delivery of S-300 missile systems to Tehran.",
+    {
+      "entities": [
+        [
+          78,
+          83,
+          "WEAPON"
+        ]
+      ]
+    }
+  ],
+  [
+    "Rostec state corporation head Sergey Chemezov said that the contract on S-300 air defense systems enters into force at the beginning of November.",
+    {
+      "entities": [
+        [
+          72,
+          77,
+          "WEAPON"
+        ]
+      ]
+    }
+  ],
+  [
+    "Russian presidential aide on military-technical cooperation Vladimir Kozhin confirmed this information earlier in December.",
+    {
+      "entities": []
+    }
+  ],
+  [
+    "Deputy Prime Minister Dmitry Rogozin told journalists that the Iranian lawsuit will be withdrawn after the first division of S-300 air defense systems is supplied to Iran.",
+    {
+      "entities": [
+        [
+          113,
+          121,
+          "MIL_UNIT"
+        ],
+        [
+          125,
+          130,
+          "WEAPON"
+        ]
+      ]
+    }
+  ],
+  [
+    "Over the past 24 hours, units of the Vostok group of troops improved the tactical situation in the south Donetsk direction, while the Ukrainian Armed Forces lost over 170 military personnel, the Russian Ministry of Defense reported.",
+    {
+      "entities": [
+        [
+          37,
+          59,
+          "MIL_UNIT"
+        ],
+        [
+          195,
+          222,
+          "MIL_ORG"
+        ]
+      ]
+    }
+  ],
+  [
+    "\"Units of the Vostok group of forces improved the tactical position in the south Donetsk direction and inflicted fire damage on units of the 72nd mechanized brigade of the Ukrainian Armed Forces and the 128th territorial defense brigade in the areas of the settlements of Vodyanoye and Nikolskoye in the Donetsk People’s Republic,\" the ministry said.",
+    {
+      "entities": [
+        [
+          14,
+          36,
+          "MIL_UNIT"
+        ],
+        [
+          141,
+          164,
+          "MIL_UNIT"
+        ],
+        [
+          172,
+          194,
+          "MIL_ORG"
+        ],
+        [
+          203,
+          236,
+          "MIL_UNIT"
+        ]
+      ]
+    }
+  ],
+  [
+    "At the same time, over the course of a day, the Russian military improved the situation along the front line of the Donetsk direction and defeated five brigades of the Ukrainian Armed Forces in the Lugansk and Donetsk People's Republics, ax well as more advantageous lines and positions in the Krasny Liman direction.",
+    {
+      "entities": [
+        [
+          147,
+          160,
+          "MIL_UNIT"
+        ],
+        [
+          168,
+          190,
+          "MIL_ORG"
+        ]
+      ]
+    }
+  ],
+  [
+    "The total losses of the Ukrainian Armed Forces over the day in the Donetsk direction reached around 360 military personnel, the enemy carried out four unsuccessful attacks, which were repelled, the Russian Ministry of Defense reported.",
+    {
+      "entities": [
+        [
+          24,
+          46,
+          "MIL_ORG"
+        ],
+        [
+          198,
+          225,
+          "MIL_ORG"
+        ]
+      ]
+    }
+  ],
+  [
+    "\"Four attacks by assault groups of the 79th Airborne Assault and 24th Mechanized Brigades of the Ukrainian Armed Forces were repelled in the areas of the settlements of Georgievka, Leninskoye, and Novgorodskoye of the Donetsk People’s Republic.",
+    {
+      "entities": [
+        [
+          39,
+          60,
+          "MIL_UNIT"
+        ],
+        [
+          65,
+          89,
+          "MIL_UNIT"
+        ],
+        [
+          97,
+          119,
+          "MIL_ORG"
+        ]
+      ]
+    }
+  ],
+  [
+    "The enemy lost up to 360 military personnel, four armored combat vehicles, 12 vehicles, as well as a combat vehicle MLRS Grad,\" the ministry reported.",
+    {
+      "entities": [
+        [
+          116,
+          125,
+          "WEAPON"
+        ]
+      ]
+    }
+  ],
+  [
+    "Operational-tactical and army aviation, as well as artillery and missile forces of the Russian Armed Forces, hit aircraft at airfields of the Ukrainian Armed Forces, warehouses of aviation weapons, as well as temporary deployment points of foreign mercenaries and special operations forces of the Ukrainian Armed Forces over the past 24 hours, the ministry said.",
+    {
+      "entities": [
+        [
+          87,
+          107,
+          "MIL_ORG"
+        ]
+      ]
+    }
+  ],
+  [
+    "\"Aviation equipment at airfields, warehouses of aviation weapons, temporary deployment points for foreign mercenaries and special operations forces of the Ukrainian Armed Forces were hit,\" the ministry said.",
+    {
+      "entities": [
+        [
+          155,
+          177,
+          "MIL_ORG"
+        ]
+      ]
+    }
+  ],
+  [
+    "The Ministry of Defense added that artillery, aviation and missile forces defeated the personnel and equipment of the Ukrainian Armed Forces in 110 regions.",
+    {
+      "entities": []
+    }
+  ],
+  [
+    "Over the past 24 hours, the Russian Armed Forces have shot down 7 HIMARS shells, 3 HARM missiles, 3 JDAM guided bombs, 3 converted S-200 missiles, and 47 unmanned aerial vehicles (UAVs) of the Ukrainian Armed Forces with air defense, the ministry reported.",
+    {
+      "entities": [
+        [
+          66,
+          72,
+          "WEAPON"
+        ],
+        [
+          83,
+          87,
+          "WEAPON"
+        ],
+        [
+          100,
+          104,
+          "WEAPON"
+        ],
+        [
+          131,
+          136,
+          "WEAPON"
+        ],
+        [
+          180,
+          184,
+          "WEAPON"
+        ],
+        [
+          193,
+          215,
+          "MIL_ORG"
+        ],
+        [
+          221,
+          232,
+          "WEAPON"
+        ],
+        [
+          238,
+          246,
+          "MIL_ORG"
+        ]
+      ]
+    }
+  ],
+  [
+    "\"Over the day, air defense systems intercepted 7 HIMARS multiple launch rocket systems, 3 HARM anti-radar missiles, 3 JDAM guided aerial bombs, and 3 S-200 anti-aircraft guided missiles converted to hit ground targets.",
+    {
+      "entities": [
+        [
+          49,
+          55,
+          "WEAPON"
+        ],
+        [
+          90,
+          94,
+          "WEAPON"
+        ],
+        [
+          118,
+          122,
+          "WEAPON"
+        ],
+        [
+          150,
+          155,
+          "WEAPON"
+        ]
+      ]
+    }
+  ],
+  [
+    "In addition, 47 Ukrainian unmanned aerial vehicles were destroyed,\" the ministry said.",
+    {
+      "entities": []
+    }
+  ],
+  [
+    "The Russian military defeated the Armed Forces of Ukraine in the areas of Sinkovka and Terny of the Kharkov region and improved the situation along the front line.",
+    {
+      "entities": [
+        [
+          34,
+          57,
+          "MIL_ORG"
+        ]
+      ]
+    }
+  ],
+  [
+    "The losses of the Ukrainian Armed Forces amounted to up to 90 military personnel.",
+    {
+      "entities": [
+        [
+          18,
+          40,
+          "MIL_ORG"
+        ]
+      ]
+    }
+  ],
+  [
+    "\"In the Kupyansk direction, units of the Zapad group of troops through active actions improved the situation along the front line, defeated the manpower and equipment of the 41st and 60th mechanized brigades of the Armed Forces of Ukraine in the areas of the settlements of Sinkovka in the Kharkov region and Terny in the Donetsk People’s Republic.",
+    {
+      "entities": [
+        [
+          41,
+          62,
+          "MIL_UNIT"
+        ],
+        [
+          174,
+          207,
+          "MIL_UNIT"
+        ],
+        [
+          215,
+          238,
+          "MIL_ORG"
+        ]
+      ]
+    }
+  ],
+  [
+    "The losses of the Armed Forces of Ukraine amounted to up to 90 military personnel, a tank, two infantry fighting vehicles, two armored personnel carriers, and three pickup trucks,\" the ministry said.",
+    {
+      "entities": [
+        [
+          18,
+          41,
+          "MIL_ORG"
+        ]
+      ]
+    }
+  ],
+  [
+    "Taiwan’s push for independence will bring the island closer to war, Spokesman for the Chinese Ministry of National Defense Zhang Xiaogang said, commenting on the Strait Thunder-2025A large-scale drills of the People’s Liberation Army of China (PLA).",
+    {
+      "entities": [
+        [
+          86,
+          122,
+          "MIL_ORG"
+        ],
+        [
+          162,
+          182,
+          "WEAPON"
+        ],
+        [
+          209,
+          242,
+          "MIL_ORG"
+        ],
+        [
+          244,
+          247,
+          "MIL_ORG"
+        ]
+      ]
+    }
+  ],
+  [
+    "\"Taiwan’s independence is incompatible with peace in the Taiwan Strait,\" Zhang said in a statement.",
+    {
+      "entities": []
+    }
+  ],
+  [
+    "\"The aspiration for independence will only subject Taiwan to the threat of a war and incur unbearable suffering on our Taiwanese compatriots,\" he added.",
+    {
+      "entities": []
+    }
+  ],
+  [
+    "The military official noted that the PLA military exercise around the island is \"absolutely legitimate, necessary, and reasonable\" and serves as a strong containing factor against the supporters of Taiwan’s independence who are \"deliberately provoking a war.\" According to Zhang, the administration of Taiwan's head Lai Ching-te is fiercely striving for independence and provoking confrontation on both sides of the Taiwan Strait.",
+    {
+      "entities": [
+        [
+          37,
+          40,
+          "MIL_ORG"
+        ],
+        [
+          416,
+          429,
+          "WEAPON"
+        ]
+      ]
+    }
+  ],
+  [
+    "\"We are cautioning the Lai Ching-te administration that those who play with fire will bring the fire upon themselves, and the more problems they create, the sooner they die,\" the military official stated.",
+    {
+      "entities": []
+    }
+  ],
+  [
+    "On April 1 and 2, the PLA held large-scale military drills near Taiwan.",
+    {
+      "entities": [
+        [
+          22,
+          25,
+          "MIL_ORG"
+        ]
+      ]
+    }
+  ],
+  [
+    "The military carried out combat patrols near the island and practiced measures on establishing comprehensive control over it, blocking key routes and areas.",
+    {
+      "entities": []
+    }
+  ],
+  [
+    "Long-range artillery was used to conduct precision strikes on simulated targets, including seaports and energy infrastructure.",
+    {
+      "entities": []
+    }
+  ],
+  [
+    "Additionally, the PLA engaged the Shandong aircraft carrier to the east of the island.",
+    {
+      "entities": [
+        [
+          18,
+          21,
+          "MIL_ORG"
+        ],
+        [
+          34,
+          59,
+          "WEAPON"
+        ]
+      ]
+    }
+  ],
+  [
+    "Taiwan has been governed by its local administration since 1949 when the remaining Kuomintang forces led by Chiang Kai-shek (1887-1975) fled to the island after being defeated in China’s civil war.",
+    {
+      "entities": []
+    }
+  ],
+  [
+    "Since then, Taiwan has preserved the flag and some other symbols of the Republic of China that had existed in mainland China before the Communists came to power.",
+    {
+      "entities": []
+    }
+  ],
+  [
+    "Beijing regards the island as one of its provinces and this position is supported by most countries, including Russia.",
+    {
+      "entities": []
+    }
+  ],
+  [
+    "Lately, relations between China’s central government and the administration in Taipei have turned particularly tense.",
+    {
+      "entities": []
+    }
+  ]
+]
