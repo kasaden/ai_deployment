@@ -17,12 +17,14 @@ Format de sortie (spaCy) :
 import json
 import os
 import time
+from pathlib import Path
 
 import requests
 
-INPUT = "../data/to_annotate.json"
-OUTPUT = "../data/annotations.json"
-ENV_FILE = "../.env"
+ROOT = Path(__file__).resolve().parent.parent   # racine du projet
+INPUT = ROOT / "data" / "to_annotate.json"
+OUTPUT = ROOT / "data" / "annotations.json"
+ENV_FILE = ROOT / ".env"
 
 MODEL = "mistral-small-latest"
 API_URL = "https://api.mistral.ai/v1/chat/completions"

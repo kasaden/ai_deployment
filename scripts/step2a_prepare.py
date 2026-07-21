@@ -12,9 +12,11 @@ Pourquoi des phrases et pas des articles entiers ?
 import json
 import random
 import re
+from pathlib import Path
 
-INPUT = "../data/corpus.json"
-OUTPUT = "../data/to_annotate.json"
+ROOT = Path(__file__).resolve().parent.parent   # racine du projet
+INPUT = ROOT / "data" / "corpus.json"
+OUTPUT = ROOT / "data" / "to_annotate.json"
 
 N_ARTICLES = 500      # nombre d'articles echantillonnes
 MAX_SENTENCES = 10000  # plafond d'unites a annoter

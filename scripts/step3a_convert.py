@@ -12,14 +12,16 @@ devenir une entite -> on l'ignore et on le compte (alignment_mode="contract").
 
 import json
 import random
+from pathlib import Path
 
 import spacy
 from spacy.tokens import DocBin
 from spacy.util import filter_spans
 
-INPUT = "../data/annotations.json"
-TRAIN_OUT = "../data/train.spacy"
-DEV_OUT = "../data/dev.spacy"
+ROOT = Path(__file__).resolve().parent.parent   # racine du projet
+INPUT = ROOT / "data" / "annotations.json"
+TRAIN_OUT = ROOT / "data" / "train.spacy"
+DEV_OUT = ROOT / "data" / "dev.spacy"
 
 SPLIT = 0.8   # part de train
 SEED = 42

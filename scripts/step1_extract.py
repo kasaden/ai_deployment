@@ -8,9 +8,11 @@ On garde le decoupage par article (une entree = un article).
 import json
 import re
 from datetime import datetime, timezone
+from pathlib import Path
 
-INPUT = "../Instructions/data_set.json"
-OUTPUT = "../data/corpus.json"
+ROOT = Path(__file__).resolve().parent.parent   # racine du projet
+INPUT = ROOT / "Instructions" / "data_set.json"
+OUTPUT = ROOT / "data" / "corpus.json"
 
 
 def clean(text):
