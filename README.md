@@ -14,11 +14,27 @@ python -m spacy download en_core_web_sm
 cp .env.example .env
 '''
 
-## Scripts
+## Pipeline (à lancer depuis scripts/)
 
-### Step 1 : Extract
+# Étape 1 — extraire le texte propre depuis le corpus source
 
-### Step 2 : annotate
+python scripts/step1_extract.py # -> data/corpus.json
 
-format : spaCy
-modele : en_core_web_sm
+# Étape 2a — échantillonner les phrases à annoter
+
+python scripts/step2a_prepare.py # -> data/to_annotate.json
+
+# Étape 2b — pré-annotation LLM (Mistral) au format spaCy
+
+python scripts/step2b_annotate.py # -> data/annotations.json
+
+# Étape 3a — split train/dev + conversion .spacy
+
+python scripts/step3a_convert.py # -> data/train.spacy, data/dev.spacy
+
+# Étape 3c — entraîner le modèle NER
+
+python -m spacy train config.cfg \
+ --output ./output \
+ --paths.train ./data/train.spacy \
+ --paths.dev ./data/dev.spacy # -> output/model-best
