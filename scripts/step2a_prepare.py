@@ -18,36 +18,40 @@ ROOT = Path(__file__).resolve().parent.parent   # racine du projet
 INPUT = ROOT / "data" / "corpus.json"
 OUTPUT = ROOT / "data" / "to_annotate.json"
 
-N_ARTICLES = 500      # nombre d'articles echantillonnes
-MAX_SENTENCES = 10000  # plafond d'unites a annoter
-MIN_LEN = 40         # on ignore les phrases trop courtes
+N_ARTICLES = None    # nombre d'articles (None = tous)
+MAX_SENTENCES = None  # plafond d'unites a annoter (None = aucun)
+MIN_LEN = 40          # longueur mini d'une phrase (0 = pas de mini)
 SEED = 42            # graine fixe -> echantillon reproductible
 
 
 def split_sentences(text):
     """Decoupage simple en phrases : coupe apres . ! ? suivi d'un espace."""
     parts = re.split(r"(?<=[.!?])\s+", text)
-    return [p.strip() for p in parts if len(p.strip()) >= MIN_LEN]
+    return [p.strip() for p in parts if p.strip() and len(p.strip()) >= MIN_LEN]
 
 
 def main():
     with open(INPUT, encoding="utf-8") as f:
         corpus = json.load(f)
 
-    random.seed(SEED)
-    sample = random.sample(corpus, N_ARTICLES)
+    if N_ARTICLES is None:
+        sample = corpus                       # tous les articles
+    else:
+        random.seed(SEED)
+        sample = random.sample(corpus, N_ARTICLES)
 
     sentences = []
     for article in sample:
         sentences.extend(split_sentences(article["text"]))
 
-    sentences = sentences[:MAX_SENTENCES]
+    if MAX_SENTENCES is not None:
+        sentences = sentences[:MAX_SENTENCES]
 
     with open(OUTPUT, "w", encoding="utf-8") as f:
         json.dump(sentences, f, ensure_ascii=False, indent=2)
 
     print(f"{len(sentences)} phrases ecrites dans {OUTPUT} "
-          f"(a partir de {N_ARTICLES} articles)")
+          f"(a partir de {len(sample)} articles)")
 
 
 if __name__ == "__main__":
