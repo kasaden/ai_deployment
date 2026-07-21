@@ -18,7 +18,7 @@ MODEL = ROOT / "output" / "model-best"
 INPUT = ROOT / "data" / "corpus.json"
 OUTPUT = ROOT / "data" / "enriched.json"
 
-LIMIT = 2000   # nb d'articles a traiter (mettre None pour tout le corpus)
+LIMIT = None   # nb d'articles a traiter (mettre None pour tout le corpus)
 
 # label du modele -> nom du champ dans le document
 FIELD = {"WEAPON": "weapons", "MIL_UNIT": "mil_units", "MIL_ORG": "mil_orgs"}
