@@ -249,8 +249,18 @@
     {
       "entities": [
         [
+          51,
+          79,
+          "MIL_UNIT"
+        ],
+        [
           87,
           107,
+          "MIL_ORG"
+        ],
+        [
+          142,
+          164,
           "MIL_ORG"
         ]
       ]
@@ -271,13 +281,29 @@
   [
     "The Ministry of Defense added that artillery, aviation and missile forces defeated the personnel and equipment of the Ukrainian Armed Forces in 110 regions.",
     {
-      "entities": []
+      "entities": [
+        [
+          35,
+          73,
+          "MIL_UNIT"
+        ],
+        [
+          118,
+          140,
+          "MIL_ORG"
+        ]
+      ]
     }
   ],
   [
     "Over the past 24 hours, the Russian Armed Forces have shot down 7 HIMARS shells, 3 HARM missiles, 3 JDAM guided bombs, 3 converted S-200 missiles, and 47 unmanned aerial vehicles (UAVs) of the Ukrainian Armed Forces with air defense, the ministry reported.",
     {
       "entities": [
+        [
+          28,
+          48,
+          "MIL_ORG"
+        ],
         [
           66,
           72,
@@ -312,11 +338,6 @@
           221,
           232,
           "WEAPON"
-        ],
-        [
-          238,
-          246,
-          "MIL_ORG"
         ]
       ]
     }
@@ -459,11 +480,6 @@
           37,
           40,
           "MIL_ORG"
-        ],
-        [
-          416,
-          429,
-          "WEAPON"
         ]
       ]
     }
