@@ -29,7 +29,7 @@ API_URL = "https://api.mistral.ai/v1/chat/completions"
 
 LABELS = ["WEAPON", "MIL_UNIT", "MIL_ORG"]
 BATCH_SIZE = 20          # phrases par appel API
-LIMIT = 40               # nb de phrases a traiter (mettre None pour tout)
+LIMIT = 2000               # nb de phrases a traiter (mettre None pour tout)
 SLEEP = 1.0              # pause entre appels (free tier ~1 req/s)
 
 PROMPT = f"""You are an OSINT annotation assistant. Extract named entities from war news sentences.
