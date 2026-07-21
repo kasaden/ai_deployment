@@ -1,12 +1,5 @@
 .env
 .venv
-*.spacy
-
-# Modele entraine (regenerable via `spacy train`)
+data/*.spacy
 output/
-
-# Gros fichiers regenerables (on garde data/annotations.json)
-Instructions/data_set.json
-data/corpus.json
-data/to_annotate.json
-data/enriched.json
+__pycache__/
