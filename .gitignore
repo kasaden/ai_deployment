@@ -1,6 +1,13 @@
 .env
 .venv
 data/*.spacy
-output/
+output/*
+!output/model-best/
 __pycache__/
 *.json
+!output/model-best/*.json
+!output/model-best/**/*.json
+# notes de travail locales (jamais publiées)
+docs/
+.superpowers/
+.claude/

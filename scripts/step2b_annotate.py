@@ -15,7 +15,6 @@ Format de sortie (spaCy) :
 """
 
 import json
-import os
 import time
 from pathlib import Path
 
@@ -34,7 +33,7 @@ BATCH_SIZE = 50          # phrases par appel API
 LIMIT = 2000               # nb de phrases a traiter (mettre None pour tout)
 SLEEP = 1.0              # pause entre appels (free tier ~1 req/s)
 
-PROMPT = f"""You are an OSINT annotation assistant. Extract named entities from war news sentences.
+PROMPT = """You are an OSINT annotation assistant. Extract named entities from war news sentences.
 
 Use ONLY these 3 labels:
 - WEAPON: weapon systems and materiel (missiles, tanks, drones, rocket launchers, e.g. "S-300", "Kalibr", "T-90").
@@ -48,7 +47,7 @@ Rules:
 
 You receive a JSON list of sentences (with their index).
 Return ONLY a JSON object of this exact shape:
-{{"results": [{{"i": <index>, "entities": [{{"text": "<exact span>", "label": "<LABEL>"}}]}}]}}
+{"results": [{"i": <index>, "entities": [{"text": "<exact span>", "label": "<LABEL>"}]}]}
 """
 
 

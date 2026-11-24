@@ -96,21 +96,60 @@ python scripts/step5_ingest.py             # -> index "tass_articles"
 > Le paramétrage (taille des échantillons, nombre d'articles, limites d'appels
 > API) se règle en tête de chaque script.
 
-## Visualisation (Kibana)
+## Mise en production : API, Docker, monitoring
 
-Une fois l'ingestion faite, dans Kibana :
+Le modèle entraîné (`output/model-best`, versionné) est servi par une API
+FastAPI. Chaque appel est journalisé dans Elasticsearch (index `api_logs`).
 
-1. Créer une **Data View** sur l'index `tass_articles` (champ temps = `date`).
-2. Construire les dashboards : top `weapons` / `mil_units` / `mil_orgs`
-   (agrégation _terms_), histogramme temporel des mentions (_date histogram_),
-   co-occurrences d'entités, filtres par période.
+```bash
+docker compose up -d --build          # api :8000 · elasticsearch :9200 · kibana :5601
+curl http://127.0.0.1:8000/health
+curl -X POST http://127.0.0.1:8000/extract -H "Content-Type: application/json" \
+  -d '{"text": "The Russian Defense Ministry said Iskander missiles hit a brigade."}'
+```
+
+- Documentation interactive : `http://127.0.0.1:8000/docs`.
+- `POST /extract` renvoie les entités (texte, label, positions) et les valeurs
+  normalisées par champ. Un texte vide ou de plus de 20 000 caractères renvoie 422.
+- Le monitoring ne bloque jamais l'API : si Elasticsearch est indisponible,
+  `/extract` répond quand même.
+- Les ports sont liés à `127.0.0.1`, car la sécurité d'Elasticsearch est désactivée
+  dans ce déploiement local.
+
+Charger les données et les dashboards (Elasticsearch local, sans clé) :
+
+```bash
+ES_URL=http://localhost:9200 python scripts/step5_ingest.py   # index tass_articles
+python scripts/simulate_traffic.py 300 0.8                     # charge simulée (optionnel)
+python scripts/kibana_setup.py                                 # dashboards + kibana/dashboards.ndjson
+```
+
+Dans Kibana, rubrique _Dashboards_ : « Renseignement TASS — entités militaires »
+et « Monitoring API — NER TASS ». Sur un autre Kibana, importez
+`kibana/dashboards.ndjson` (_Stack Management → Saved objects → Import_).
+
+## Tests et CI/CD
+
+```bash
+pip install -r requirements-dev.txt
+ruff check .
+pytest -q
+```
+
+GitHub Actions (`.github/workflows/ci.yml`) enchaîne, à chaque push : lint,
+tests, construction de l'image et essai de l'API dans le conteneur. Sur `main`,
+l'image est publiée sur `ghcr.io/kasaden/ai_deployment`.
 
 ## Structure du dépôt
 
 ```
-scripts/     les étapes du pipeline (step1 … step5)
-config.cfg   configuration d'entraînement spaCy
-data/        fichiers générés (non versionnés)
+scripts/      les étapes du pipeline (step1 … step5), trafic simulé, setup Kibana
+ner_core/     normalisation des entités, partagée par l'étape 4 et l'API
+api/          API FastAPI et journalisation de monitoring
+tests/        tests pytest
+kibana/       dashboards exportés (ndjson)
+config.cfg    configuration d'entraînement spaCy
+data/         fichiers générés (non versionnés)
 Instructions/ corpus source et énoncé (non versionnés)
-output/      modèle entraîné (non versionné)
+output/       modèle entraîné (seul model-best est versionné)
 ```
