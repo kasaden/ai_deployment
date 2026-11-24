@@ -1,0 +1,10 @@
+.git
+.venv
+.env
+.superpowers
+data
+Instructions
+output/model-last
+docs
+tests
+**/__pycache__

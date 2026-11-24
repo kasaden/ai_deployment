@@ -3,14 +3,15 @@
 - Cree l'index avec un mapping explicite (texte, date, entites en keyword).
 - Ingere data/enriched.json via l'API _bulk.
 
-Prerequis dans le .env :
-    ES_URL=https://xxxxx.es.region.cloud.es.io:443
-    ES_API_KEY=ta_cle_encodee
+Prerequis (variables d'environnement ou .env) :
+    Elastic Cloud :  ES_URL=https://xxxxx.es.region.cloud.es.io:443  et  ES_API_KEY=ta_cle
+    Docker local  :  ES_URL=http://localhost:9200  (pas de cle)
 
 On reste leger : requests + API REST, pas de SDK.
 """
 
 import json
+import os
 from pathlib import Path
 
 import requests
@@ -40,25 +41,37 @@ MAPPING = {
 
 
 def load_env():
-    """Lit ES_URL et ES_API_KEY depuis le .env."""
+    """Lit ES_URL et ES_API_KEY : variables d'environnement d'abord, puis le .env.
+
+    ES_API_KEY est facultative : sans cle, on vise un Elasticsearch local
+    sans securite (docker compose), par ex. ES_URL=http://localhost:9200.
+    """
     values = {}
-    with open(ENV_FILE, encoding="utf-8") as f:
-        for line in f:
-            line = line.strip()
-            if line.startswith(("ES_URL=", "ES_API_KEY=")):
-                key, val = line.split("=", 1)
-                values[key] = val.strip().strip('"').strip("'")
-    if "ES_URL" not in values or "ES_API_KEY" not in values:
-        raise RuntimeError("ES_URL et ES_API_KEY doivent etre definis dans .env")
-    return values["ES_URL"].rstrip("/"), values["ES_API_KEY"]
+    if ENV_FILE.exists():
+        with open(ENV_FILE, encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if line.startswith(("ES_URL=", "ES_API_KEY=")):
+                    key, val = line.split("=", 1)
+                    values[key] = val.strip().strip('"').strip("'")
+    for key in ("ES_URL", "ES_API_KEY"):
+        if os.environ.get(key):
+            values[key] = os.environ[key]
+    if not values.get("ES_URL"):
+        raise RuntimeError("ES_URL doit etre defini (variable d'environnement ou .env)")
+    return values["ES_URL"].rstrip("/"), values.get("ES_API_KEY") or None
+
+
+def build_headers(api_key):
+    headers = {"Content-Type": "application/json"}
+    if api_key:
+        headers["Authorization"] = f"ApiKey {api_key}"
+    return headers
 
 
 def main():
     url, api_key = load_env()
-    headers = {
-        "Authorization": f"ApiKey {api_key}",
-        "Content-Type": "application/json",
-    }
+    headers = build_headers(api_key)
 
     # 1. (Re)creer l'index avec le mapping. On supprime l'ancien s'il existe.
     requests.delete(f"{url}/{INDEX}", headers=headers, timeout=30)
