@@ -8,38 +8,24 @@ Chaque document contient : id, date, title, url, text + weapons / mil_units / mi
 """
 
 import json
+import sys
 from collections import Counter
 from pathlib import Path
 
 import spacy
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))  # pour importer ner_core depuis scripts/
+
+from ner_core.entities import FIELD, group_entities
+
 MODEL = ROOT / "output" / "model-best"
 INPUT = ROOT / "data" / "corpus.json"
 OUTPUT = ROOT / "data" / "enriched.json"
 
 LIMIT = None   # nb d'articles a traiter (mettre None pour tout le corpus)
 
-# label du modele -> nom du champ dans le document
-FIELD = {"WEAPON": "weapons", "MIL_UNIT": "mil_units", "MIL_ORG": "mil_orgs"}
-
-# regroupement de synonymes evidents (cles et valeurs en minuscules)
-# On NE fusionne PAS les nationalites (russian/ukrainian) : c'est du renseignement.
-ALIAS = {
-    "uavs": "uav",
-    "unmanned aerial vehicle": "uav",
-    "unmanned aerial vehicles": "uav",
-    "drones": "drone",
-    "tanks": "tank",
-    "mortars": "mortar",
-    "missiles": "missile",
-}
-
-
-def normalize(text):
-    """Minuscules, espaces normalises, puis alias eventuel."""
-    t = " ".join(text.lower().split())
-    return ALIAS.get(t, t)
+# FIELD, ALIAS et la normalisation sont dans ner_core/entities.py (partages avec l'API).
 
 
 def main():
@@ -57,13 +43,7 @@ def main():
 
     # nlp.pipe = inference par lots, plus rapide
     for article, doc in zip(corpus, nlp.pipe(texts, batch_size=64)):
-        groups = {field: [] for field in FIELD.values()}
-        for ent in doc.ents:
-            if ent.label_ in FIELD:
-                field = FIELD[ent.label_]
-                value = normalize(ent.text)
-                if value not in groups[field]:   # unique par article
-                    groups[field].append(value)
+        groups = group_entities(doc)   # valeurs normalisees, uniques par article
 
         enriched.append({
             "id": article["id"],
