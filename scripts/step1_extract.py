@@ -7,7 +7,7 @@ On garde le decoupage par article (une entree = un article).
 
 import json
 import re
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent   # racine du projet
@@ -35,7 +35,7 @@ def main():
         # date Unix -> ISO (utile plus tard pour Elasticsearch/Kibana)
         date_iso = None
         if a.get("date"):
-            date_iso = datetime.fromtimestamp(a["date"], tz=timezone.utc).isoformat()
+            date_iso = datetime.fromtimestamp(a["date"], tz=UTC).isoformat()
 
         corpus.append({
             "id": a.get("id"),
