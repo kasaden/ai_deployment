@@ -84,6 +84,20 @@ def test_rejected_request_not_logged_as_prediction(client, logger):
     assert all("n_weapons" not in rec for rec in logger.records[before:])
 
 
+def test_server_error_is_logged_with_status_500(monkeypatch):
+    import api.main as main_mod
+
+    def boom(doc):
+        raise RuntimeError("bug simulé")
+
+    monkeypatch.setattr(main_mod, "group_entities", boom)
+    logger = FakeLogger()
+    with TestClient(create_app(MODEL, logger), raise_server_exceptions=False) as c:
+        r = c.post("/extract", json={"text": SENTENCE})
+    assert r.status_code == 500
+    assert [rec["status"] for rec in logger.records] == [500]
+
+
 def test_extract_survives_es_down():
     dead = EsRequestLogger("http://127.0.0.1:9", timeout=0.5)
     with TestClient(create_app(MODEL, dead)) as c:

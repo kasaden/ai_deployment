@@ -4,10 +4,13 @@ Règle : le monitoring ne doit jamais faire échouer une requête. Toute erreur
 réseau est avalée ; le timeout est court.
 """
 
+import logging
 import os
 from typing import Protocol
 
 import requests
+
+logger = logging.getLogger(__name__)
 
 INDEX = "api_logs"
 
@@ -39,6 +42,7 @@ class EsRequestLogger:
         self.es_url = es_url.rstrip("/")
         self.index = index
         self.timeout = timeout
+        self.ready = False  # index créé avec son mapping ?
 
     @classmethod
     def from_env(cls):
@@ -46,17 +50,30 @@ class EsRequestLogger:
         return cls(url) if url else None
 
     def ensure_index(self) -> bool:
-        """Crée l'index avec son mapping s'il n'existe pas. False si ES est injoignable."""
+        """Crée l'index avec son mapping s'il n'existe pas. False (tracé) en cas d'échec."""
         url = f"{self.es_url}/{self.index}"
         try:
             if requests.head(url, timeout=self.timeout).status_code == 200:
-                return True
-            return requests.put(url, json=MAPPING, timeout=self.timeout).status_code < 300
-        except requests.RequestException:
+                self.ready = True
+            else:
+                self.ready = requests.put(url, json=MAPPING, timeout=self.timeout).status_code < 300
+        except requests.RequestException as err:
+            logger.warning("index de monitoring %s non créé : %s", self.index, err)
             return False
+        if not self.ready:
+            logger.warning("index de monitoring %s non créé (réponse refusée)", self.index)
+        return self.ready
 
     def log(self, record: dict) -> None:
+        # Sans mapping, Elasticsearch devinerait les types au premier document :
+        # on retente la création tant qu'elle n'a pas réussi.
+        if not self.ready and not self.ensure_index():
+            return
         try:
-            requests.post(f"{self.es_url}/{self.index}/_doc", json=record, timeout=self.timeout)
-        except requests.RequestException:
-            pass
+            r = requests.post(f"{self.es_url}/{self.index}/_doc", json=record, timeout=self.timeout)
+        except requests.RequestException as err:
+            # Le monitoring ne doit pas faire échouer la requête : on trace et on continue.
+            logger.warning("journal de monitoring non écrit dans %s : %s", self.index, err)
+            return
+        if r.status_code >= 300:
+            logger.warning("journal de monitoring refusé par %s : HTTP %s", self.index, r.status_code)

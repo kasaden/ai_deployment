@@ -36,12 +36,54 @@ def test_logger_creates_index_with_mapping(monkeypatch):
     assert props["route"] == {"type": "keyword"}
 
 
-def test_log_swallows_connection_error(monkeypatch):
+def test_log_swallows_connection_error(monkeypatch, caplog):
     def boom(*a, **k):
         raise requests.ConnectionError("down")
 
     monkeypatch.setattr(monitoring.requests, "post", boom)
-    EsRequestLogger("http://es:9200").log({"route": "/extract"})  # ne doit rien lever
+    es = EsRequestLogger("http://es:9200")
+    es.ready = True
+    es.log({"route": "/extract"})  # ne doit rien lever
+    assert "api_logs" in caplog.text  # l'échec est tracé, pas avalé en silence
+
+
+def test_log_retries_index_creation_until_it_succeeds(monkeypatch):
+    calls = []
+
+    class R:
+        def __init__(self, code):
+            self.status_code = code
+
+    monkeypatch.setattr(monitoring.requests, "head", lambda url, timeout=None: R(404))
+    monkeypatch.setattr(monitoring.requests, "put",
+                        lambda url, json=None, timeout=None: calls.append("PUT") or R(200))
+    monkeypatch.setattr(monitoring.requests, "post",
+                        lambda url, json=None, timeout=None: calls.append("POST") or R(201))
+    es = EsRequestLogger("http://es:9200")
+    es.ready = False  # comme si ensure_index avait échoué au démarrage
+    es.log({"route": "/extract"})
+    es.log({"route": "/extract"})
+    assert calls == ["PUT", "POST", "POST"]
+
+
+def test_failed_index_creation_is_traced(monkeypatch, caplog):
+    def boom(*a, **k):
+        raise requests.ConnectionError("down")
+
+    monkeypatch.setattr(monitoring.requests, "head", boom)
+    assert EsRequestLogger("http://es:9200").ensure_index() is False
+    assert "api_logs" in caplog.text
+
+
+def test_rejected_log_is_traced(monkeypatch, caplog):
+    class R:
+        status_code = 429
+
+    monkeypatch.setattr(monitoring.requests, "post", lambda *a, **k: R())
+    es = EsRequestLogger("http://es:9200")
+    es.ready = True
+    es.log({"route": "/extract"})
+    assert "429" in caplog.text
 
 
 def test_from_env_without_url_returns_none(monkeypatch):

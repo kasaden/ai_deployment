@@ -12,6 +12,7 @@ from pathlib import Path
 import spacy
 from fastapi import FastAPI, Request
 from starlette.background import BackgroundTask
+from starlette.concurrency import run_in_threadpool
 
 from api.monitoring import EsRequestLogger, RequestLogger
 from api.schemas import MAX_CHARS, Entity, ExtractRequest, ExtractResponse, HealthResponse
@@ -44,17 +45,28 @@ def create_app(model_path: Path, request_logger: RequestLogger | None) -> FastAP
     @app.middleware("http")
     async def monitor(request: Request, call_next):
         start = time.perf_counter()
-        response = await call_next(request)
-        if request_logger is not None and request.url.path == "/extract":
-            record = {
+        watched = request_logger is not None and request.url.path == "/extract"
+
+        def record(status):
+            rec = {
                 "@timestamp": datetime.now(UTC).isoformat(),
                 "route": request.url.path,
-                "status": response.status_code,
+                "status": status,
                 "latency_ms": round((time.perf_counter() - start) * 1000, 2),
                 "model": model_id,
             }
-            record.update(getattr(request.state, "prediction", {}))
-            response.background = BackgroundTask(request_logger.log, record)
+            rec.update(getattr(request.state, "prediction", {}))
+            return rec
+
+        try:
+            response = await call_next(request)
+        except Exception:
+            # Erreur serveur : on la journalise (statut 500) avant de la laisser remonter.
+            if watched:
+                await run_in_threadpool(request_logger.log, record(500))
+            raise
+        if watched:
+            response.background = BackgroundTask(request_logger.log, record(response.status_code))
         return response
 
     @app.get("/health", response_model=HealthResponse)
